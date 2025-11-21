@@ -1,0 +1,11 @@
+# Gereksiz klasörler
+node_modules
+/client/node_modules
+/server/node_modules
+
+# Sistem dosyaları
+.DS_Store
+Thumbs.db
+
+# Çevre değişkenleri (Şifreler vs.)
+.env

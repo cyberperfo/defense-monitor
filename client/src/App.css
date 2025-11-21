@@ -1,0 +1,93 @@
+body {
+  background-color: #0f172a;
+  color: #e2e8f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 20px; padding-bottom: 400px;}
+.header { text-align: center; border-bottom: 1px solid #334155; padding-bottom: 20px; margin-bottom: 30px; }
+.title { color: #10b981; font-size: 2rem; text-transform: uppercase; letter-spacing: 2px; margin: 0;}
+.header p { color: #64748b; margin-top: 5px; font-size: 0.9rem; }
+
+.section-title { color: #e2e8f0; border-left: 4px solid #10b981; padding-left: 15px; margin-bottom: 20px; text-transform: uppercase;}
+
+.breadcrumb { margin-bottom: 20px; color: #64748b; font-size: 0.9rem; }
+.breadcrumb a { color: #3b82f6; text-decoration: none; }
+.breadcrumb .active { color: #e2e8f0; font-weight: bold; }
+
+/* GRID YAPISI */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+
+/* NAVIGASYON KARTLARI */
+.nav-card {
+  background: #1e293b; border: 1px solid #334155; border-radius: 12px;
+  text-decoration: none; color: white; transition: all 0.3s;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  min-height: 150px;
+}
+.nav-card:hover { transform: translateY(-5px); border-color: #10b981; background: #253248; box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+.nav-card h1 { font-size: 3rem; margin: 0 0 10px 0; }
+.nav-card h3 { margin: 0; color: #10b981; }
+.nav-card p { font-size: 0.8rem; color: #64748b; margin-top: 10px; }
+
+/* ÜRÜN KARTLARI */
+.card { background: #1e293b; border: 1px solid #334155; border-radius: 8px; overflow: hidden; transition: transform 0.2s; }
+.card:hover { transform: translateY(-5px); border-color: #10b981; }
+.card img { width: 100%; height: 180px; object-fit: cover; }
+.card-body { padding: 15px; }
+.card h3 { margin: 0 0 10px 0; font-size: 1.2rem; }
+.badge { background: #3b82f6; color: white; padding: 2px 8px; font-size: 11px; border-radius: 4px; margin-right: 5px; }
+.desc { font-size: 12px; color: #94a3b8; margin: 10px 0; line-height: 1.4; }
+.specs { background: #0f172a; padding: 8px; border-radius: 4px; font-family: monospace; font-size: 11px; margin-bottom: 10px;}
+
+.btn { background: #10b981; color: #0f172a; border: none; padding: 10px; width: 100%; font-weight: bold; cursor: pointer; border-radius: 4px;}
+.btn:hover { background: #059669; }
+
+/* KIYASLAMA PANELİ */
+.comparison-panel {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(15, 23, 42, 0.98); border-top: 4px solid #10b981;
+  padding: 20px; height: 350px; display: flex; gap: 20px; z-index: 100;
+  box-shadow: 0 -10px 50px rgba(0,0,0,0.8);
+}
+.chart-container { flex: 2; background: #fff; border-radius: 8px; padding: 10px; display: flex; justify-content: center;}
+.compare-list { flex: 1; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+.compare-item { background: #1e293b; padding: 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #334155;}
+.btn-danger { background: #ef4444; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;}
+
+/* --- YENİ: HABER BANDI STİLLERİ --- */
+.news-ticker-container {
+    background: #10b981;
+    color: #0f172a;
+    display: flex;
+    height: 40px;
+    align-items: center;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+.ticker-label {
+    background: #064e3b;
+    color: white;
+    padding: 0 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+    z-index: 2;
+}
+.ticker-wrap { flex: 1; overflow: hidden; white-space: nowrap; }
+.ticker-move { display: inline-block; padding-left: 100%; animation: ticker 40s linear infinite; }
+.ticker-item { display: inline-block; padding: 0 2rem; font-size: 0.9rem; font-weight: 600; }
+.ticker-item a { color: #0f172a; text-decoration: none; }
+.ticker-item a:hover { text-decoration: underline; }
+.dot { color: #cc0000; margin-right: 5px; }
+
+@keyframes ticker {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
+}
