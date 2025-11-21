@@ -24,7 +24,7 @@ const NewsTicker = () => {
 
   const fetchNews = () => {
     // Sunucudan haberleri çek
-    axios.get('http://localhost:5000/api/news')
+    axios.get('https://savunmasanayibulten.onrender.com/api/news')
       .then(res => setNews(res.data))
       .catch(err => console.error("Haber hatası:", err));
   };
@@ -64,9 +64,9 @@ const CountrySelect = () => {
 
   useEffect(() => {
     // Ülkeleri çek
-    axios.get('http://localhost:5000/api/countries').then(res => setCountries(res.data));
+    axios.get('https://savunmasanayibulten.onrender.com/api/countries').then(res => setCountries(res.data));
     // Bülten haberlerini çek
-    axios.get('http://localhost:5000/api/news').then(res => setLatestNews(res.data));
+    axios.get('https://savunmasanayibulten.onrender.com/api/news').then(res => setLatestNews(res.data));
   }, []);
 
   return (
@@ -117,7 +117,7 @@ const CompanySelect = () => {
   const [companies, setCompanies] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/companies?country=${countryName}`)
+    axios.get(`https://savunmasanayibulten.onrender.com/api/companies?country=${countryName}`)
       .then(res => setCompanies(res.data));
   }, [countryName]);
 
@@ -149,7 +149,7 @@ const ProductList = () => {
   const [compareList, setCompareList] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/products?manufacturer=${companyName}`)
+    axios.get(`https://savunmasanayibulten.onrender.com/api/products?manufacturer=${companyName}`)
       .then(res => setWeapons(res.data));
   }, [companyName]);
 
