@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom';
 import './App.css';
-// Chatbot bileşenini import etmeyi unutma (Dosyasını oluşturduysan)
 import Chatbot from './Chatbot'; 
 
 import {
@@ -18,23 +17,19 @@ import { Radar } from 'react-chartjs-2';
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
-// --- 1. BİLEŞEN: ÜST HABER BANDI (AUTO-REFRESH TİCKER) ---
+// --- 1. ÜST HABER BANDI (TICKER) ---
 const NewsTicker = () => {
   const [news, setNews] = useState([]);
 
   const fetchNews = () => {
-    // Sunucudan haberleri çek
     axios.get('https://savunmasanayibulten.onrender.com/api/news')
       .then(res => setNews(res.data))
       .catch(err => console.error("Haber hatası:", err));
   };
 
   useEffect(() => {
-    fetchNews(); // İlk açılışta çek
-    // Her 60 saniyede bir güncelle
-    const timer = setInterval(() => {
-      fetchNews();
-    }, 60000);
+    fetchNews();
+    const timer = setInterval(() => fetchNews(), 60000);
     return () => clearInterval(timer);
   }, []);
 
@@ -57,7 +52,7 @@ const NewsTicker = () => {
   );
 };
 
-// --- 2. BİLEŞEN: ANA SAYFA (DASHBOARD / BÜLTEN MODU) ---
+// --- 2. ANA SAYFA (BÜLTEN MODU - GÜNCELLENMİŞ HALİ) ---
 const CountrySelect = () => {
   const [countries, setCountries] = useState([]);
   const [latestNews, setLatestNews] = useState([]);
@@ -65,14 +60,14 @@ const CountrySelect = () => {
   useEffect(() => {
     // Ülkeleri çek
     axios.get('https://savunmasanayibulten.onrender.com/api/countries').then(res => setCountries(res.data));
-    // Bülten haberlerini çek
+    // Haberleri çek (Bülten için)
     axios.get('https://savunmasanayibulten.onrender.com/api/news').then(res => setLatestNews(res.data));
   }, []);
 
   return (
     <div className="page-container dashboard-layout">
       
-      {/* SOL TARAF: ÜLKE SEÇİMİ (ENVANTER) */}
+      {/* SOL TARA: ÜLKE SEÇİMİ (ENVANTER) */}
       <div className="dashboard-main">
         <h2 className="section-title">🌍 KÜRESEL ENVANTERLER</h2>
         <div className="grid">
@@ -96,7 +91,6 @@ const CountrySelect = () => {
               <div key={index} className="news-card">
                 <span className="news-tag">AI ANALİZ</span>
                 <a href={item.link} target="_blank" rel="noreferrer">
-                  {/* 'CANLI:' yazısını başlıktan temizleyerek gösterelim */}
                   <h4>{item.title.replace("CANLI:", "")}</h4>
                 </a>
                 <p className="news-summary">
@@ -111,7 +105,7 @@ const CountrySelect = () => {
   );
 };
 
-// --- 3. BİLEŞEN: ŞİRKET SEÇİMİ ---
+// --- 3. ŞİRKET SEÇİMİ ---
 const CompanySelect = () => {
   const { countryName } = useParams();
   const [companies, setCompanies] = useState([]);
@@ -142,7 +136,7 @@ const CompanySelect = () => {
   );
 };
 
-// --- 4. BİLEŞEN: ÜRÜN LİSTESİ VE KIYASLAMA ---
+// --- 4. ÜRÜN LİSTESİ VE KIYASLAMA ---
 const ProductList = () => {
   const { companyName } = useParams();
   const [weapons, setWeapons] = useState([]);
@@ -199,7 +193,6 @@ const ProductList = () => {
         ))}
       </div>
 
-      {/* KIYASLAMA PANELİ */}
       {compareList.length > 0 && (
         <div className="comparison-panel">
           <div className="compare-list">
@@ -224,22 +217,15 @@ function App() {
   return (
     <Router>
       <div className="app-wrapper">
-        {/* 1. En Tepe: Kayan Haber Bandı */}
         <NewsTicker /> 
-        
-        {/* 2. Sağ Alt: Yapay Zeka Chatbot */}
         <Chatbot />
-
         <div className="container">
-          {/* 3. Header */}
           <header className="header">
             <Link to="/" style={{textDecoration:'none'}}>
               <h1 className="title">DEFENSE TECH MONITOR</h1>
             </Link>
             <p>Küresel Savunma Sanayi & Teknoloji Kataloğu</p>
           </header>
-
-          {/* 4. Sayfa Yönlendirmeleri */}
           <Routes>
             <Route path="/" element={<CountrySelect />} />
             <Route path="/country/:countryName" element={<CompanySelect />} />
